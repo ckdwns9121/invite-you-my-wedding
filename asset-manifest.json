@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/invite-you-my-wedding/static/css/main.7c945cc6.css",
+    "main.js": "/invite-you-my-wedding/static/js/main.fe1cfcbd.js",
+    "static/js/453.4c893857.chunk.js": "/invite-you-my-wedding/static/js/453.4c893857.chunk.js",
+    "static/media/GowunDodum-Regular.woff2": "/invite-you-my-wedding/static/media/GowunDodum-Regular.5cc66f3a81d5d53d30d8.woff2",
+    "static/media/yleeMortalHeart-ImmortalMemory.woff2": "/invite-you-my-wedding/static/media/yleeMortalHeart-ImmortalMemory.d1a76a289760157b4a94.woff2",
+    "static/media/slick.svg": "/invite-you-my-wedding/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/invite-you-my-wedding/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/invite-you-my-wedding/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "index.html": "/invite-you-my-wedding/index.html",
+    "static/media/slick.woff": "/invite-you-my-wedding/static/media/slick.295183786cd8a1389865.woff",
+    "main.7c945cc6.css.map": "/invite-you-my-wedding/static/css/main.7c945cc6.css.map",
+    "main.fe1cfcbd.js.map": "/invite-you-my-wedding/static/js/main.fe1cfcbd.js.map",
+    "453.4c893857.chunk.js.map": "/invite-you-my-wedding/static/js/453.4c893857.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7c945cc6.css",
+    "static/js/main.fe1cfcbd.js"
+  ]
+}
