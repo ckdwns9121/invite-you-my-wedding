@@ -432,9 +432,7 @@ export const Dimed = styled.div`
   opacity: 0.3;
   display: block;
 
-  &.disable {
-    display: none;
-  }
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
 `;
 
 export const Container = styled.div`

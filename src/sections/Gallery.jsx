@@ -1,42 +1,69 @@
-import { Flex, TextCategoryTitle, EmptyBox } from "../styles";
+import { useState, useRef, useMemo } from "react";
 import styled from "styled-components";
+
+import { TextCategoryTitle, EmptyBox } from "../styles";
+import { _IMAGE_SRCS, _PATH } from "../constants/image";
 import MultiSlick from "../components/Slick/MultiSlick";
-import { useState, useRef } from "react";
 import ImageModal from "../components/Modal/ImageModal";
-import { _imageSrcArray, _path } from "../constants/image";
 
 export default function Gallery() {
+  const optimizedImagePaths = useMemo(() => {
+    return _IMAGE_SRCS.map((imageName) => `${process.env.PUBLIC_URL}/image/gallery/${imageName}`);
+  }, []);
+
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [imageSrc, setImageSrc] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
   const [tab, setTab] = useState(0);
 
   const slideRef = useRef(null);
   const testRef = useRef(null);
 
   const handleOpenModal = (src, index) => {
-    setImageSrc(`${_path}/${src}`);
+    setSelectedImage(`${_PATH}/${src}`);
     setTab(index);
     setIsImageModalOpen(true);
     slideRef.current?.slickGoTo(index);
   };
   return (
     <Container>
-      <Flex className="blue" ref={testRef} data-aos="fade-up" data-aos-duration="900">
+      <Flex ref={testRef} data-aos="fade-up" data-aos-duration="900">
         <EmptyBox />
         <TextCategoryTitle>gallery</TextCategoryTitle>
         <SliderWraper>
           <MultiSlick>
-            {_imageSrcArray.map((src, index) => (
-              <WeddingImage src={`${_path}/${src}`} onClick={() => handleOpenModal(src, index)} key={index} loading="lazy" decoding="async" />
+            {optimizedImagePaths.map((src, index) => (
+              <WeddingImage
+                src={src}
+                onClick={() => handleOpenModal(src, index)}
+                key={index}
+                loading="lazy"
+                decoding="async"
+              />
             ))}
           </MultiSlick>
         </SliderWraper>
         <EmptyBox />
       </Flex>
-      <ImageModal ref={slideRef} isModalOpen={isImageModalOpen} src={imageSrc} handleCloseModal={() => setIsImageModalOpen(false)} tab={tab} />
+      <ImageModal
+        ref={slideRef}
+        isModalOpen={isImageModalOpen}
+        src={selectedImage}
+        handleCloseModal={() => setIsImageModalOpen(false)}
+        tab={tab}
+      />
     </Container>
   );
 }
+
+const Flex = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f0ede6;
+  will-change: transform;
+`;
 
 const Container = styled.div`
   position: relative;

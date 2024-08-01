@@ -1,18 +1,19 @@
-import { forwardRef } from "react";
+import { forwardRef, useMemo, memo } from "react";
 import styled from "styled-components";
-import ReactDom from "react-dom";
-import { useState, useEffect } from "react";
 
 // component
+
 import { Dimed } from "./ConnectInfoModal";
 import IconButton from "../Button/IconButton";
-import CloseSvg from "../Icons/close";
+import CloseSvg from "../Icons/Close";
 
 // constant
-import { _imageSrcArray, _path } from "../../constants/image";
+import { _IMAGE_SRCS, _PATH } from "../../constants/image";
 
 // slick
 import Slider from "react-slick";
+
+const OptimizedImage = memo(({ src, alt, ...props }) => <Image src={src} alt={alt} loading="lazy" {...props} />);
 
 const ImageModal = forwardRef(({ src, isModalOpen, handleCloseModal, ...props }, ref) => {
   const settings = {
@@ -23,17 +24,13 @@ const ImageModal = forwardRef(({ src, isModalOpen, handleCloseModal, ...props },
     slidesToScroll: 1,
   };
 
-  const [element, setElement] = useState(null);
-
-  useEffect(() => {
-    setElement(document.getElementById("modal"));
+  const optimizedImagePaths = useMemo(() => {
+    return _IMAGE_SRCS.map((imageName) => `${process.env.PUBLIC_URL}/image/gallery/${imageName}`);
   }, []);
 
-  if (!element) return <></>;
-
-  return ReactDom.createPortal(
+  return (
     <>
-      <Container className={isModalOpen ? "" : "disable"}>
+      <Container isOpen={isModalOpen}>
         <Header>
           <IconButtonWrapper>
             <IconButton onClick={handleCloseModal}>
@@ -43,15 +40,14 @@ const ImageModal = forwardRef(({ src, isModalOpen, handleCloseModal, ...props },
         </Header>
         <Wrapper>
           <Slider {...settings} ref={ref}>
-            {_imageSrcArray.map((src) => (
-              <Image src={`${_path}/${src}`} key={src} />
+            {optimizedImagePaths.map((src) => (
+              <Image src={src} key={src} loading="lazy" alt={`웨딩사진-${src}`} />
             ))}
           </Slider>
         </Wrapper>
       </Container>
-      <Dimed className={isModalOpen ? "" : "disable"} onClick={handleCloseModal} style={{ opacity: "0.9" }} />
-    </>,
-    element
+      <Dimed isOpen={isModalOpen} onClick={handleCloseModal} style={{ opacity: "0.9" }} />
+    </>
   );
 });
 
@@ -65,25 +61,19 @@ const Header = styled.header`
 
 const Container = styled.div`
   position: fixed;
-  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 435px;
+  margin: 0 auto;
+
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  z-index: ${({ isOpen }) => (isOpen ? 999 : -999)};
+
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-  z-index: 11;
-  width: 100%;
-
-  max-width: 435px;
-  margin: 0 auto;
-  z-index: 999;
-  opacity: 1;
-  &.disable {
-    opacity: 0;
-    z-index: -999;
-  }
 `;
 
 const Image = styled.img`

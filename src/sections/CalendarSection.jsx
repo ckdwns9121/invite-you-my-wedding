@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { EmptyBox, Flex } from "../styles";
-import HeartIcon from "../components/Icons/heart";
+import HeartIcon from "../components/Icons/Heart";
 
 import { TheTimes } from "../components/DdayCount";
 
@@ -14,14 +14,17 @@ export default function CalendarSection() {
           <Text>창원 힐스카이 10층 힐그랜드홀</Text>
         </TextWrapper>
         <EmptyBox />
-        <Image src="image/calendar.png" data-aos="flip-left" data-aos-easing="ease-out-cubic" />
+        <Image
+          src={`${process.env.PUBLIC_URL}/image/calendar.png`}
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+        />
         <TextWrapper data-aos="zoom-in-up" data-aos-delay="100">
-          <Text className="countDownText">
+          <CountdownText>
             종범
-            <HeartIcon src="image/heart.png" />
+            <HeartIcon />
             유정
-          </Text>
-
+          </CountdownText>
           <Flex>
             <TheTimes targetDate={new Date(2024, 5, 2, 12, 10)} />
           </Flex>
@@ -36,6 +39,10 @@ const Container = styled.div`
   padding-bottom: 84px;
 `;
 
+const TextWrapper = styled.div`
+  position: relative;
+`;
+
 const Text = styled.p`
   @media (max-width: 414px) {
     font-size: 1.5rem;
@@ -47,15 +54,15 @@ const Text = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  &.countDownText {
-    padding-top: 12px;
-    padding-bottom: 4px;
-  }
+`;
+
+const CountdownText = styled(Text)`
+  padding-top: 12px;
+  padding-bottom: 4px;
 `;
 
 const Image = styled.img`
   margin-bottom: 50px;
   width: 75%;
+  will-change: transform;
 `;
-
-const TextWrapper = styled.div``;

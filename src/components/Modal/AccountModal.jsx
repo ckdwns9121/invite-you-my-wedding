@@ -94,7 +94,7 @@ export default function AccountModal({ isBride, isModalOpen, setIsModalOpen }) {
           </ButtonWrapper>
         </Flex>
       </Container>
-      <Dimed className={isModalOpen ? "" : "disable"} onClick={handleCloseModal} />
+      <Dimed isOpen={isModalOpen} onClick={handleCloseModal} />
     </>
   );
 }

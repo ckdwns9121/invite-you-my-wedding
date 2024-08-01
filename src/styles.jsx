@@ -12,14 +12,6 @@ const Flex = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  &.blue {
-    background-color: #f0ede6;
-  }
-  &.wedding-info {
-    text-align: center;
-    width: 100%;
-  }
 `;
 
 const RealtiveFlex = styled(Flex)`

@@ -3,14 +3,9 @@ import styled from "styled-components";
 import useCopyClipboard from "../hooks/useCopyClipboard";
 import { toast } from "react-toastify";
 
-/**
- *
- * absolute 들은 가장 가까운 relative 부모 태그 순으로 영향을 받음.
- *
- */
 export default function Location({ ref }) {
   const { copyToClipboard } = useCopyClipboard();
-  const notify = target => toast(`${target} 주소가 복사되었습니다.`);
+  const notify = (target) => toast(`${target} 주소가 복사되었습니다.`);
 
   return (
     <Container ref={ref}>
@@ -23,23 +18,27 @@ export default function Location({ ref }) {
         <Text>점심 12시 10분</Text>
         <MapWrapper>
           <StyledA href="https://map.kakao.com/link/search/창원 힐스타이웨딩">
-            <MapIcon src="nav-icon/kakaomap.png" />
+            <MapIcon src={`${process.env.PUBLIC_URL}/nav-icon/kakaomap.png`} />
           </StyledA>
           <StyledA href="https://map.naver.com/p/search/%EC%B0%BD%EC%9B%90%20%ED%9E%90%20%EC%8A%A4%EC%B9%B4%EC%9D%B4%20%EC%9B%A8%EB%94%A9">
-            <MapIcon src="nav-icon/navermap.png" />
+            <MapIcon src={`${process.env.PUBLIC_URL}/nav-icon/navermap.png`} />
           </StyledA>
           <StyledA href="https://tmap.life/62ffaa39">
-            <MapIcon src="nav-icon/tmap.png" />
+            <MapIcon src={`${process.env.PUBLIC_URL}/nav-icon/tmap.png`} />
           </StyledA>
           <StyledA href="https://www.google.com/maps/dir//%ED%9E%90%EC%8A%A4%EC%B9%B4%EC%9D%B4+%EC%9B%A8%EB%94%A9%26%EC%BB%A8%EB%B2%A4%EC%85%98+Gyeongsangnam-do,+Changwon-si,+Masanhoewon-gu,+Bongam-dong,+133/data=!4m8!4m7!1m0!1m5!1m1!1s0x356f33b97d989541:0x43b9f3c30f6c73d2!2m2!1d128.6014549!2d35.2190478?entry=ttu">
-            <MapIcon src="nav-icon/googlemap.png" />
+            <MapIcon src={`${process.env.PUBLIC_URL}/nav-icon/googlemap.png`} />
           </StyledA>
         </MapWrapper>
       </Flex>
       <Flex>
         <LocationInfoBox>
           <Text className="t">창원 힐스카이웨딩 & 컨벤션 힐그랜드홀</Text>
-          <ImageWedding src="image/weddingholl-image.jpeg" />
+          <ImageWedding
+            src={`${process.env.PUBLIC_URL}/image/weddingholl-image.jpeg`}
+            alt="웨딩홀사진"
+            loading="lazy"
+          />
           <Text className="tb">📍 도로명 주소</Text>
           <Text
             className="doc"
@@ -69,7 +68,8 @@ export default function Location({ ref }) {
           <Text className="doc">좌석 - 740, 3002</Text>
           <Text className="tb">🚙 자가용을 이용하실 경우</Text>
           <Text className="doc">
-            ✔️ 봉암공단사거리, 창원역, 마산시외버스 터미널, 마산 어시장, 마산역 경전선(<B>마산 봉암수원지 입구</B> 유턴 후 <B>300m 직진</B>)
+            ✔️ 봉암공단사거리, 창원역, 마산시외버스 터미널, 마산 어시장, 마산역 경전선(<B>마산 봉암수원지 입구</B> 유턴
+            후 <B>300m 직진</B>)
           </Text>
           <Text className="doc">✔️ 진해, 창원, 시외버스터미널, 창원대로 힐스카이 앞 도착</Text>
           <Text className="doc">

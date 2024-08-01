@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Button from "../components/Button/Button";
 import styled from "styled-components";
 import { Flower } from "../styles";
@@ -6,11 +7,14 @@ import modalState from "../store/infoModal";
 
 export default function Poetry() {
   const setModalState = useSetRecoilState(modalState);
+
+  const imageUrl = useMemo(() => `${process.env.PUBLIC_URL}/image/form-background.png`, []);
+
   return (
     <Container>
       <FormWrapper data-aos="flip-left" data-aos-delay="300" data-aos-duration="1200">
-        <BackgoundImage src="image/form-background.png" />
-        <Flower className="f-t" src="image/flower.png" />
+        <BackgoundImage src={imageUrl} alt="배경이미지" />
+        <Flower className="f-t" src={`${process.env.PUBLIC_URL}/image/flower.png`} alt="꽃" />
         <TextWrapper className="align-l">
           <Text>유월의 어느 초여름,</Text>
           <Text>늘 곁에서 아껴주셨던 고마운 분들을 모십니다.</Text>
@@ -20,7 +24,7 @@ export default function Poetry() {
           <Text>같이 있으면 기분 좋아지는 그대와 함께</Text>
           <Text>인생의 길을 걸어가겠습니다.</Text>
         </TextWrapper>
-        <Flower className="f-b" src="image/flower.png" />
+        <Flower className="f-b" src={`${process.env.PUBLIC_URL}/image/flower.png`} alt="꽃" />
       </FormWrapper>
       <FormWrapper className="w1">
         <TextRowWrapper data-aos="fade-up" data-aos-delay="300">
@@ -53,6 +57,7 @@ const FormWrapper = styled.div`
     margin: 42px;
     background-color: #ffff;
   }
+  will-change: transform;
 `;
 
 const TextWrapper = styled.div`
@@ -62,6 +67,8 @@ const TextWrapper = styled.div`
 `;
 
 const TextRowWrapper = styled.div`
+  will-change: transform;
+
   @media (max-width: 393px) {
     width: 18rem;
   }

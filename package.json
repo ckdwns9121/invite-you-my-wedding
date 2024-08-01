@@ -28,7 +28,7 @@
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://devchaeyoung.github.io/invite-you-my-wedding/",
+  "homepage": "https://ckdwns9121.github.io/invite-you-my-wedding/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

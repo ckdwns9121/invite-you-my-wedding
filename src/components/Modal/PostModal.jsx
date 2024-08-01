@@ -5,7 +5,7 @@ import TextInput from "../Input/TextInput";
 import { useState, useEffect } from "react";
 import ReactDom from "react-dom";
 import IconButton from "../Button/IconButton";
-import CloseSvg from "../Icons/close";
+import CloseSvg from "../Icons/Close";
 
 const PostModal = ({ isModalOpen, handleCloseModal }) => {
   const [title, setTitle] = useState("");
@@ -30,11 +30,9 @@ const PostModal = ({ isModalOpen, handleCloseModal }) => {
 
   if (!element) return <></>;
 
-  if (!isModalOpen) return null;
-
   return ReactDom.createPortal(
     <>
-      <Container className={isModalOpen ? "" : "disabled"}>
+      <Container isOpen={isModalOpen}>
         <Header>
           <HeaderTextWrapper>
             <HeaderText>💐축하 방명록 쓰기</HeaderText>
@@ -48,20 +46,31 @@ const PostModal = ({ isModalOpen, handleCloseModal }) => {
 
         <Wrapper>
           <TextWrapper>
-            <TextInput value={author} onChange={e => setAuthor(e.target.value)} type="text" label={"이름"} />
+            <TextInput value={author} onChange={(e) => setAuthor(e.target.value)} type="text" label={"이름"} />
           </TextWrapper>
           <TextWrapper>
-            <TextInput value={password} onChange={e => setPassword(e.target.value)} type="password" label={"비밀번호"} />
+            <TextInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              label={"비밀번호"}
+            />
           </TextWrapper>
           <TextWrapper>
-            <TextInput value={title} onChange={e => setTitle(e.target.value)} type="text" label={"축하글을 작성해주세요! (100자이내)"} textArea />
+            <TextInput
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              type="text"
+              label={"축하글을 작성해주세요! (100자이내)"}
+              textArea
+            />
           </TextWrapper>
           <Button className="button" onClick={onCreateGuestBook}>
             신랑 신부에게 축하 글 전달하기
           </Button>
         </Wrapper>
       </Container>
-      <Dimed className={isModalOpen ? "" : "disable"} onClick={handleCloseModal} />
+      <Dimed isOpen={isModalOpen} onClick={handleCloseModal} />
     </>,
     element
   );
@@ -104,9 +113,9 @@ const Container = styled.div`
   max-width: 435px;
 
   margin: 0 auto;
-  &.disable {
-    display: none;
-  }
+
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  z-index: ${({ isOpen }) => (isOpen ? 999 : -999)};
 `;
 
 const IconButtonWrapper = styled.div`

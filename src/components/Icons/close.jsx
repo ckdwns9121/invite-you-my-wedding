@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default function CloseSvg() {
-  return <StyledImage src="image/close-line-icon.png" />;
+  return <StyledImage src={`${process.env.PUBLIC_URL}/image/close-line-icon.png`} />;
 }
 
 const StyledImage = styled.img`

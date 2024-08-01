@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Flex } from "../styles";
+
 export default function Ending() {
   return (
     <Container>
@@ -9,6 +9,14 @@ export default function Ending() {
     </Container>
   );
 }
+
+const Flex = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const Container = styled.div`
   position: relative;

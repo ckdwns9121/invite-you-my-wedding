@@ -1,4 +1,4 @@
-export const _imageSrcArray = [
+export const _IMAGE_SRCS = [
   "1.png",
   "4.jpeg",
   "3.jpeg",
@@ -39,4 +39,4 @@ export const _imageSrcArray = [
   "29.png",
   "30.png",
 ];
-export const _path = `image/gallery`;
+export const _PATH = `image/gallery`;

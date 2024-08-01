@@ -43,7 +43,7 @@ const ConfirmModal = ({ fetchDeleteGuestBook, isModalOpen, handleCloseModal, gue
           <TextWrapper>
             <TextInput
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               label={"작성 시 입력하신 비밀번호를 입력해주세요."}
             />
@@ -58,7 +58,7 @@ const ConfirmModal = ({ fetchDeleteGuestBook, isModalOpen, handleCloseModal, gue
           </ButtonWrapper>
         </Wrapper>
       </Container>
-      <Dimed className={isModalOpen ? "" : "disable"} onClick={handleCloseModal} />
+      <Dimed isOpen={isModalOpen} onClick={handleCloseModal} />
     </>,
     element
   );

@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 // style
 
 import styled from "styled-components";
-import { Container, Flex, Flower } from "../styles";
+import { Container, Flower } from "../styles";
 
 // component
 
 import GuestBookList from "../components/GuestBook/GuestBookList";
 import PostModal from "../components/Modal/PostModal";
-import HeartIcon from "../components/Icons/heart";
+import HeartIcon from "../components/Icons/Heart";
 
 // mui
 import { Pagination } from "@mui/material";
@@ -36,7 +36,7 @@ export default function Posting() {
     setPostList(data);
   };
 
-  const deleteGuestbook = async id => {
+  const deleteGuestbook = async (id) => {
     alert("삭제 붙가한 게시물입니다.");
     getGuestBooks();
   };
@@ -48,12 +48,12 @@ export default function Posting() {
   return (
     <>
       <Container>
-        <Flex className="blue">
-          <Flower src="image/flower.png" className="f-t" />
+        <Flex>
+          <Flower src={`${process.env.PUBLIC_URL}/image/flower.png`} className="f-t" />
           <TextWrapper>
             <Text>
               신랑
-              <HeartIcon src="image/heart.png" />
+              <HeartIcon />
               신부에게 축하글을 남겨주세요.
             </Text>
             <GoToWriteButton
@@ -64,15 +64,27 @@ export default function Posting() {
               축하글 쓰기💐
             </GoToWriteButton>
           </TextWrapper>
-          <GuestBookList posts={postList.slice((currentPage - 1) * limit, currentPage * limit)} onDelete={deleteGuestbook} />
+          <GuestBookList
+            posts={postList.slice((currentPage - 1) * limit, currentPage * limit)}
+            onDelete={deleteGuestbook}
+          />
           <Pagination count={count} page={currentPage} onChange={handleChange} />
-          <Flower src="image/flower.png" className="f-b" />
+          <Flower src={`${process.env.PUBLIC_URL}/image/flower.png`} className="f-b" />
         </Flex>
       </Container>
       <PostModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
     </>
   );
 }
+
+const Flex = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f0ede6;
+`;
 
 const GoToWriteButton = styled.div`
   @media (max-width: 414px) {

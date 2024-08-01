@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Flex } from "../styles";
 import styled from "styled-components";
 import AccountModal from "../components/Modal/AccountModal";
+
 export default function WeddingInfo() {
   const [active1, setActive1] = useState(false);
   const active2 = true;
@@ -12,7 +12,7 @@ export default function WeddingInfo() {
     <>
       <AccountModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isBride={isBride} />
       <Container data-aos="fade-up" data-aos-duration="800">
-        <Flex className="wedding-info">
+        <Flex>
           <InfoWrapper className={active2 ? "active2" : "disable"}>
             <AbsoluteLine />
             <Box>
@@ -21,7 +21,7 @@ export default function WeddingInfo() {
               <Text className="info-title">마음 전하실 곳</Text>
             </Box>
             <TextWrapper className={active2 ? "active2" : "disable"}>
-              <Flex className="wedding-info">
+              <Flex>
                 <Text className="top-t">비대면으로 축하를 전하고자</Text>
                 <Text>하시는 분들을 위해</Text>
                 <Text>계좌 번호를 기재하였습니다.</Text>
@@ -51,14 +51,14 @@ export default function WeddingInfo() {
               </Box>
             </TextWrapper>
           </InfoWrapper>
-          <InfoWrapper className={active1 ? "active1" : "disable"} onClick={() => setActive1(prev => !prev)}>
+          <InfoWrapper className={active1 ? "active1" : "disable"} onClick={() => setActive1((prev) => !prev)}>
             <AbsoluteLine />
             <Box>
               <Triangle className={active1 ? "active" : ""} />
               <Text className="info-title">축하 화환 보내기</Text>
             </Box>
             <TextWrapper className={active1 ? "active1" : "disable"}>
-              <Flex className="wedding-info">
+              <Flex>
                 <TextWrapper>
                   <Text className="t-info">신랑, 신부의 결혼을 축하해주세요.</Text>
                   <Text className="t-info">예식일에 맞춰 웨딩홀로 배송됩니다.</Text>
@@ -82,6 +82,16 @@ export default function WeddingInfo() {
     </>
   );
 }
+
+const Flex = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+`;
 
 const Container = styled.div`
   position: relative;
