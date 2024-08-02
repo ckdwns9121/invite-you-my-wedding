@@ -1,10 +1,29 @@
+import React from "react";
 import styled from "styled-components";
 
-export default function CloseSvg() {
-  return <StyledImage src={`${process.env.PUBLIC_URL}/image/close-line-icon.png`} />;
+export default function CloseIcon({ size = "20px", color = "currentColor", ...props }) {
+  return (
+    <StyledSvg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </StyledSvg>
+  );
 }
 
-const StyledImage = styled.img`
-  width: 20px;
-  height: 20px;
+const StyledSvg = styled.svg`
+  vertical-align: middle;
 `;
+
+CloseIcon.displayName = "CloseIcon";
