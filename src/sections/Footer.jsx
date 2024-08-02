@@ -1,152 +1,124 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Poster() {
+const KakaoShareButton = () => {
+  const [isKakaoLoaded, setIsKakaoLoaded] = useState(false);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      if (window.Kakao) {
+        window.Kakao.init("933c1dc5c71683ec8ee52c1de08223ff");
+        setIsKakaoLoaded(true);
+      }
+    };
+
+    script.onerror = () => {
+      console.error("Failed to load Kakao SDK");
+      setIsKakaoLoaded(false);
+    };
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const handleShare = () => {
+    if (window.Kakao && isKakaoLoaded) {
+      window.Kakao.Share.sendCustom({
+        templateId: 107185,
+        templateArgs: {
+          title: "소종범 ♥️ 권유정 결혼합니다.",
+          description: "2024년 6월 2일 (일) 오후 12시 10분, 창원 힐스카이 10층 힐그랜드홀",
+        },
+      });
+    } else {
+      alert("카카오톡 공유 기능을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    }
+  };
+
   return (
-    <Container as="section" aria-label="결혼식 포스터">
-      <ImageWrapper>
-        <RightTextBox aria-hidden="true">
-          <Text as="span">종범</Text>
-          <Text as="span">유정</Text>
-        </RightTextBox>
-        <Image
-          src={`${process.env.PUBLIC_URL}/image/poster-image.jpeg`}
-          alt="종범과 유정의 결혼식 포스터 배경 이미지"
-          loading="lazy"
-        />
-        <Absolute>
-          <Text as="h1" className="f6">
-            Yujeong & Jongbum
-          </Text>
-          <Text as="p">창원 힐스카이웨딩 10층 힐그랜드홀</Text>
-          <Text as="time" dateTime="2024-06-02T12:10:00" className="f3">
-            2024.06.02 Jun 12:10
-          </Text>
-        </Absolute>
-      </ImageWrapper>
+    <ShareButton onClick={handleShare} disabled={!isKakaoLoaded}>
+      카카오톡으로 공유하기
+    </ShareButton>
+  );
+};
+
+export default function Footer() {
+  return (
+    <Container as="footer" aria-label="페이지 하단부">
+      <Link
+        href="https://github.com/devchaeyoung/invite-you-my-wedding"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="개발자 GitHub 페이지로 이동"
+      >
+        <Flex>
+          <Text>&copy; Dev chaeyoung</Text>
+        </Flex>
+      </Link>
+      <KakaoShareButton />
     </Container>
   );
 }
 
 const Container = styled.div`
+  background-color: #a8a8a8;
   position: relative;
-  margin: 0;
-`;
-
-const ImageWrapper = styled.div`
-  position: relative;
-`;
-
-const Image = styled.img`
   width: 100%;
-  height: auto;
-  vertical-align: bottom;
-`;
-
-const Absolute = styled.div`
-  position: absolute;
-  bottom: 22px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.5); // 텍스트 가독성을 위한 배경 추가
   padding: 10px 0;
-
-  @media (max-width: 430px) {
-    bottom: 2px;
-  }
-  @media (max-width: 414px) {
-    bottom: 4px;
-  }
-  @media (max-width: 375px) {
-    bottom: 8px;
-  }
-  @media (max-width: 360px) {
-    bottom: 12px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Text = styled.p`
-  font-size: 1.6rem;
-  color: #fff;
-  margin: 5px 0;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 5px 0;
+`;
 
-  &.f6 {
-    font-family: "yleeMortalHeart-ImmortalMemory", sans-serif;
-    font-size: 6rem;
-    margin-bottom: 10px;
-
-    @media (max-width: 430px) {
-      font-size: 5rem;
-      margin-bottom: 2px;
-    }
-    @media (max-width: 414px) {
-      font-size: 5rem;
-      margin-bottom: 2px;
-    }
-    @media (max-width: 412px) {
-      font-size: 5.2rem;
-    }
-    @media (max-width: 393px) {
-      font-size: 4.8rem;
-      margin-bottom: 1px;
-    }
-    @media (max-width: 375px) {
-      font-size: 5.2rem;
-      margin-bottom: 2px;
-    }
-    @media (max-width: 360px) {
-      font-size: 4.7rem;
-    }
-  }
-
-  &.f3 {
-    font-family: "yleeMortalHeart-ImmortalMemory", sans-serif;
-    font-size: 3rem;
-
-    @media (max-width: 430px) {
-      font-size: 2.7rem;
-    }
-    @media (max-width: 412px) {
-      font-size: 2.8rem;
-    }
-    @media (max-width: 393px) {
-      font-size: 2.3rem;
-    }
-    @media (max-width: 375px) {
-      font-size: 2.8rem;
-    }
-    @media (max-width: 360px) {
-      font-size: 2.8rem;
-    }
-  }
-
-  @media (max-width: 430px) {
-    font-size: 1.6rem;
-  }
-  @media (max-width: 412px) {
-    font-size: 1.6rem;
-  }
-  @media (max-width: 393px) {
-    font-size: 1.4rem;
-  }
-  @media (max-width: 375px) {
-    font-size: 1.6rem;
-  }
-  @media (max-width: 360px) {
-    font-size: 1.6rem;
+const Link = styled.a`
+  text-decoration: none;
+  color: white;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
   }
 `;
 
-const RightTextBox = styled.div`
-  width: 100%;
-  position: absolute;
+const Flex = styled.div`
   display: flex;
   justify-content: center;
-  text-align: right;
-  flex-direction: column;
-  margin-left: -5%;
-  margin-top: 5%;
+  align-items: center;
+  flex-direction: row;
+  padding: 5px 10px;
+`;
+
+const ShareButton = styled.button`
+  width: 80%;
+  max-width: 300px;
+  height: 40px;
+  background-color: #fee500;
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover,
+  &:focus {
+    background-color: #fdd835;
+  }
+
+  &:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+  }
 `;
