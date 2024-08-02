@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function Ending() {
   return (
-    <Container>
+    <Container as="section" aria-label="행복하게 잘 살겠습니다.">
       <Flex>
         <Text>행복하게 잘 살겠습니다.</Text>
       </Flex>

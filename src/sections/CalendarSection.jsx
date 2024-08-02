@@ -1,38 +1,44 @@
+import React from "react";
 import styled from "styled-components";
 import { EmptyBox, Flex } from "../styles";
 import HeartIcon from "../components/Icons/Heart";
-
 import { TheTimes } from "../components/DdayCount";
 
 export default function CalendarSection() {
   return (
-    <Container>
+    <Container as="section" aria-label="웨딩 일정 및 카운트다운">
       <Flex>
         <TextWrapper data-aos="zoom-in-up" data-aos-delay="100">
-          <Text>2024년 6월 2일</Text>
-          <Text>오후 12시 10분</Text>
+          <Text as="time" dateTime="2024-06-02T12:10:00+09:00">
+            2024년 6월 2일
+          </Text>
+          <Text as="time" dateTime="2024-06-02T12:10:00+09:00">
+            오후 12시 10분
+          </Text>
           <Text>창원 힐스카이 10층 힐그랜드홀</Text>
         </TextWrapper>
         <EmptyBox />
         <Image
           src={`${process.env.PUBLIC_URL}/image/calendar.png`}
+          alt="2024년 6월 2일이 표시된 캘린더 이미지"
           data-aos="flip-left"
           data-aos-easing="ease-out-cubic"
         />
         <TextWrapper data-aos="zoom-in-up" data-aos-delay="100">
-          <CountdownText>
+          <CountdownText aria-label="신랑 신부 이름">
             종범
-            <HeartIcon />
+            <HeartIcon aria-hidden="true" />
             유정
           </CountdownText>
           <Flex>
-            <TheTimes targetDate={new Date(2024, 5, 2, 12, 10)} />
+            <TheTimes targetDate={new Date(2024, 5, 2, 12, 10)} aria-label="결혼식까지 남은 시간" />
           </Flex>
         </TextWrapper>
       </Flex>
     </Container>
   );
 }
+
 const Container = styled.div`
   position: relative;
   padding-top: 48px;

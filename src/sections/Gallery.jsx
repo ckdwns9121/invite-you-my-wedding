@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import styled from "styled-components";
 
 import { TextCategoryTitle, EmptyBox } from "../styles";
@@ -24,24 +24,35 @@ export default function Gallery() {
     setIsImageModalOpen(true);
     slideRef.current?.slickGoTo(index);
   };
+
   return (
-    <Container>
+    <Container as="section" aria-label="웨딩 갤러리">
       <Flex ref={testRef} data-aos="fade-up" data-aos-duration="900">
         <EmptyBox />
-        <TextCategoryTitle>gallery</TextCategoryTitle>
-        <SliderWraper>
-          <MultiSlick>
+        <TextCategoryTitle as="h2">Gallery</TextCategoryTitle>
+        <SliderWrapper>
+          <MultiSlick aria-label="웨딩 사진 슬라이더">
             {optimizedImagePaths.map((src, index) => (
-              <WeddingImage
-                src={src}
-                onClick={() => handleOpenModal(src, index)}
-                key={index}
-                loading="lazy"
-                decoding="async"
-              />
+              <WeddingImageWrapper key={index}>
+                <WeddingImage
+                  src={src}
+                  alt={`웨딩 사진 ${index + 1}`}
+                  onClick={() => handleOpenModal(src, index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleOpenModal(src, index);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`웨딩 사진 ${index + 1} 확대하기`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </WeddingImageWrapper>
             ))}
           </MultiSlick>
-        </SliderWraper>
+        </SliderWrapper>
         <EmptyBox />
       </Flex>
       <ImageModal
@@ -68,12 +79,24 @@ const Flex = styled.div`
 const Container = styled.div`
   position: relative;
 `;
-const SliderWraper = styled.div`
+
+const SliderWrapper = styled.div`
   position: relative;
   width: 100%;
 `;
 
+const WeddingImageWrapper = styled.div`
+  padding: 2px 4px;
+  box-sizing: border-box;
+`;
+
 const WeddingImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  cursor: pointer;
+
   @media (max-width: 414px) {
     min-height: 301px;
   }
@@ -83,16 +106,7 @@ const WeddingImage = styled.img`
   @media (max-width: 360px) {
     min-height: 270px;
   }
-  @media (max-width: 360px) {
-    min-height: 264px;
-  }
   @media (max-width: 290px) {
     min-height: 220px;
   }
-  width: 100%;
-  min-height: 318px;
-  padding: 2px 4px;
-  box-sizing: border-box;
-  object-fit: cover;
-  object-position: center center;
 `;

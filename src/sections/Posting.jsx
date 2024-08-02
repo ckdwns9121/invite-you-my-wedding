@@ -1,17 +1,9 @@
-import { useEffect, useState } from "react";
-
-// style
-
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container, Flower } from "../styles";
-
-// component
-
 import GuestBookList from "../components/GuestBook/GuestBookList";
 import PostModal from "../components/Modal/PostModal";
 import HeartIcon from "../components/Icons/Heart";
-
-// mui
 import { Pagination } from "@mui/material";
 import { data } from "../configs/data";
 
@@ -31,13 +23,12 @@ export default function Posting() {
 
   const getGuestBooks = async () => {
     const datas = data;
-
     setCount(Math.ceil(datas.length / limit));
     setPostList(data);
   };
 
   const deleteGuestbook = async (id) => {
-    alert("삭제 붙가한 게시물입니다.");
+    alert("삭제 불가능한 게시물입니다.");
     getGuestBooks();
   };
 
@@ -46,34 +37,28 @@ export default function Posting() {
   }, []);
 
   return (
-    <>
-      <Container>
-        <Flex>
-          <Flower src={`${process.env.PUBLIC_URL}/image/flower.png`} className="f-t" />
-          <TextWrapper>
-            <Text>
-              신랑
-              <HeartIcon />
-              신부에게 축하글을 남겨주세요.
-            </Text>
-            <GoToWriteButton
-              onClick={() => {
-                setIsModalOpen(true);
-              }}
-            >
-              축하글 쓰기💐
-            </GoToWriteButton>
-          </TextWrapper>
-          <GuestBookList
-            posts={postList.slice((currentPage - 1) * limit, currentPage * limit)}
-            onDelete={deleteGuestbook}
-          />
-          <Pagination count={count} page={currentPage} onChange={handleChange} />
-          <Flower src={`${process.env.PUBLIC_URL}/image/flower.png`} className="f-b" />
-        </Flex>
-      </Container>
-      <PostModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
-    </>
+    <Container as="section" aria-label="방명록">
+      <Flex>
+        <Flower src={`${process.env.PUBLIC_URL}/image/flower.png`} alt="장식용 꽃 이미지" className="f-t" />
+        <TextWrapper>
+          <Text>
+            신랑
+            <HeartIcon aria-hidden="true" />
+            신부에게 축하글을 남겨주세요.
+          </Text>
+          <GoToWriteButton onClick={() => setIsModalOpen(true)} aria-label="축하글 쓰기">
+            축하글 쓰기💐
+          </GoToWriteButton>
+        </TextWrapper>
+        <GuestBookList
+          posts={postList.slice((currentPage - 1) * limit, currentPage * limit)}
+          onDelete={deleteGuestbook}
+        />
+        <Pagination count={count} page={currentPage} onChange={handleChange} aria-label="방명록 페이지 네비게이션" />
+        <Flower src={`${process.env.PUBLIC_URL}/image/flower.png`} alt="장식용 꽃 이미지" className="f-b" />
+      </Flex>
+      <PostModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} aria-labelledby="post-modal-title" />
+    </Container>
   );
 }
 
@@ -86,7 +71,23 @@ const Flex = styled.div`
   background-color: #f0ede6;
 `;
 
-const GoToWriteButton = styled.div`
+const GoToWriteButton = styled.button`
+  border-radius: 10px;
+  padding: 3px 10px;
+  background-color: #797676;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: auto;
+  cursor: pointer;
+  border: none;
+  font-size: 1.2rem;
+
+  &:hover,
+  &:focus {
+    background-color: #595959;
+  }
+
   @media (max-width: 414px) {
     font-size: 1.2rem;
     padding: 3px 6px;
@@ -107,18 +108,15 @@ const GoToWriteButton = styled.div`
     font-size: 1.2rem;
     padding: 1px 4px;
   }
-  border-radius: 10px;
-  padding: 3px 10px;
-  background-color: #797676;
-  color: #fff;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: auto;
-
-  cursor: pointer;
 `;
 
 const Text = styled.p`
+  font-size: 1.2rem;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media (max-width: 414px) {
     font-size: 1.3rem;
   }
@@ -134,15 +132,14 @@ const Text = styled.p`
   @media (max-width: 290px) {
     font-size: 1.2rem;
   }
-
-  font-size: 1.2rem;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const TextWrapper = styled.div`
+  display: flex;
+  width: 85%;
+  margin-bottom: 10px;
+  z-index: 10;
+
   @media (max-width: 430px) {
     width: 27.5rem;
   }
@@ -155,8 +152,4 @@ const TextWrapper = styled.div`
   @media (max-width: 375px) {
     width: 29.5rem;
   }
-  display: flex;
-  width: 85%;
-  margin-bottom: 10px;
-  z-index: 10;
 `;

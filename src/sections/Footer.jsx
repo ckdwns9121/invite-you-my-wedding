@@ -1,86 +1,152 @@
-import { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const KakaoShareButton = () => {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      if (window.Kakao) {
-        window.Kakao.init("933c1dc5c71683ec8ee52c1de08223ff");
-      }
-    };
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const handleShare = () => {
-    if (window.Kakao) {
-      window.Kakao.Share.sendCustom({
-        templateId: 107185,
-        templateArgs: {
-          title: "소종범 ♥️ 권유정 결혼합니다.",
-          description: "2024년 6월 2일 (일) 오후 12시 10분, 창원 힐스카이 10층 힐그랜드홀",
-        },
-      });
-    }
-  };
-
-  return <ShareButton onClick={handleShare}>카카오톡으로 공유하기</ShareButton>;
-};
-
-export default function Footer() {
+export default function Poster() {
   return (
-    <Container>
-      <Link target="" href="https://github.com/devchaeyoung/invite-you-my-wedding">
-        <Flex>
-          <Text>&@copyright</Text>
-          <Text>Dev chaeyoung</Text>
-        </Flex>
-      </Link>
-      <KakaoShareButton />
+    <Container as="section" aria-label="결혼식 포스터">
+      <ImageWrapper>
+        <RightTextBox aria-hidden="true">
+          <Text as="span">종범</Text>
+          <Text as="span">유정</Text>
+        </RightTextBox>
+        <Image
+          src={`${process.env.PUBLIC_URL}/image/poster-image.jpeg`}
+          alt="종범과 유정의 결혼식 포스터 배경 이미지"
+          loading="lazy"
+        />
+        <Absolute>
+          <Text as="h1" className="f6">
+            Yujeong & Jongbum
+          </Text>
+          <Text as="p">창원 힐스카이웨딩 10층 힐그랜드홀</Text>
+          <Text as="time" dateTime="2024-06-02T12:10:00" className="f3">
+            2024.06.02 Jun 12:10
+          </Text>
+        </Absolute>
+      </ImageWrapper>
     </Container>
   );
 }
 
 const Container = styled.div`
-  background-color: #a8a8a8;
   position: relative;
-  width: 100%;
-  height: 56px;
   margin: 0;
 `;
 
-const Text = styled.p`
-  color: white;
-  text-align: center;
-  height: 100%;
+const ImageWrapper = styled.div`
+  position: relative;
 `;
 
-const Link = styled.a`
-  text-decoration: none;
+const Image = styled.img`
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
 `;
-const Flex = styled.div`
-  position: flex;
+
+const Absolute = styled.div`
+  position: absolute;
+  bottom: 22px;
+  width: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
-  padding: 12px 10px 0px 10px;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5); // 텍스트 가독성을 위한 배경 추가
+  padding: 10px 0;
+
+  @media (max-width: 430px) {
+    bottom: 2px;
+  }
+  @media (max-width: 414px) {
+    bottom: 4px;
+  }
+  @media (max-width: 375px) {
+    bottom: 8px;
+  }
+  @media (max-width: 360px) {
+    bottom: 12px;
+  }
 `;
 
-const ShareButton = styled.div`
+const Text = styled.p`
+  font-size: 1.6rem;
+  color: #fff;
+  margin: 5px 0;
+
+  &.f6 {
+    font-family: "yleeMortalHeart-ImmortalMemory", sans-serif;
+    font-size: 6rem;
+    margin-bottom: 10px;
+
+    @media (max-width: 430px) {
+      font-size: 5rem;
+      margin-bottom: 2px;
+    }
+    @media (max-width: 414px) {
+      font-size: 5rem;
+      margin-bottom: 2px;
+    }
+    @media (max-width: 412px) {
+      font-size: 5.2rem;
+    }
+    @media (max-width: 393px) {
+      font-size: 4.8rem;
+      margin-bottom: 1px;
+    }
+    @media (max-width: 375px) {
+      font-size: 5.2rem;
+      margin-bottom: 2px;
+    }
+    @media (max-width: 360px) {
+      font-size: 4.7rem;
+    }
+  }
+
+  &.f3 {
+    font-family: "yleeMortalHeart-ImmortalMemory", sans-serif;
+    font-size: 3rem;
+
+    @media (max-width: 430px) {
+      font-size: 2.7rem;
+    }
+    @media (max-width: 412px) {
+      font-size: 2.8rem;
+    }
+    @media (max-width: 393px) {
+      font-size: 2.3rem;
+    }
+    @media (max-width: 375px) {
+      font-size: 2.8rem;
+    }
+    @media (max-width: 360px) {
+      font-size: 2.8rem;
+    }
+  }
+
+  @media (max-width: 430px) {
+    font-size: 1.6rem;
+  }
+  @media (max-width: 412px) {
+    font-size: 1.6rem;
+  }
+  @media (max-width: 393px) {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 375px) {
+    font-size: 1.6rem;
+  }
+  @media (max-width: 360px) {
+    font-size: 1.6rem;
+  }
+`;
+
+const RightTextBox = styled.div`
   width: 100%;
-  height: 40px;
-  background-color: #fff;
-  text-align: center;
-  color: #000000;
-  line-height: 40px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  text-align: right;
+  flex-direction: column;
+  margin-left: -5%;
+  margin-top: 5%;
 `;
