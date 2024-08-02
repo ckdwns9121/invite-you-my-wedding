@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, memo } from "react";
+import { forwardRef, useMemo } from "react";
 import styled from "styled-components";
 
 // component
@@ -8,12 +8,10 @@ import IconButton from "../Button/IconButton";
 import CloseSvg from "../Icons/Close";
 
 // constant
-import { _IMAGE_SRCS, _PATH } from "../../constants/image";
+import { _IMAGE_SRCS } from "../../constants/image";
 
 // slick
 import Slider from "react-slick";
-
-const OptimizedImage = memo(({ src, alt, ...props }) => <Image src={src} alt={alt} loading="lazy" {...props} />);
 
 const ImageModal = forwardRef(({ src, isModalOpen, handleCloseModal, ...props }, ref) => {
   const settings = {

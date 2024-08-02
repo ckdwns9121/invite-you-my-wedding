@@ -33,7 +33,6 @@ import { ToastContainer } from "react-toastify";
 
 import Sound from "./components/Sound/Sound";
 import { BrowserRouter } from "react-router-dom";
-import Intro from "./sections/Intro";
 
 // icon
 

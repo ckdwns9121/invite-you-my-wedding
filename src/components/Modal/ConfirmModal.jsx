@@ -5,25 +5,25 @@ import TextInput from "../Input/TextInput";
 import { useState, useEffect } from "react";
 
 import ReactDom from "react-dom";
-import { toast } from "react-toastify";
 
 const ConfirmModal = ({ fetchDeleteGuestBook, isModalOpen, handleCloseModal, guestBookItem }) => {
   const [password, setPassword] = useState("");
   const [element, setElement] = useState(null);
 
-  const notify = () => toast("방명록이 삭제되었습니다.");
-
   const onDeleteGuestBook = () => {
-    if (password !== guestBookItem.password) {
-      alert("비밀번호가 틀립니다");
-      return;
-    }
-    notify();
-    fetchDeleteGuestBook(guestBookItem.id);
+    alert("삭제 불가능한 게시글");
+    return;
 
-    setTimeout(() => {
-      handleCloseModal();
-    }, 300);
+    // if (password !== guestBookItem.password) {
+    //   alert("비밀번호가 틀립니다");
+    //   return;
+    // }
+    // notify();
+    // fetchDeleteGuestBook(guestBookItem.id);
+
+    // setTimeout(() => {
+    //   handleCloseModal();
+    // }, 300);
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const ConfirmModal = ({ fetchDeleteGuestBook, isModalOpen, handleCloseModal, gue
             />
           </TextWrapper>
           <ButtonWrapper>
-            <Button className="button point" onClick={() => alert("삭제 불가한 게시물입니다.")}>
+            <Button className="button point" onClick={onDeleteGuestBook}>
               삭제
             </Button>
             <Button className="button" onClick={handleCloseModal}>

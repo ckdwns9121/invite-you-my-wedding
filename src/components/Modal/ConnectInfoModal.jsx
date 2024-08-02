@@ -3,15 +3,6 @@ import { useRecoilState } from "recoil";
 import infoModalState from "../../store/infoModal";
 import "react-toastify/dist/ReactToastify.css";
 
-const people_info = [
-  { account: "", phone: "" },
-  { account: "", phone: "" },
-  { account: "", phone: "" },
-  { account: "", phone: "" },
-  { account: "", phone: "" },
-  { account: "", phone: "" },
-];
-
 export default function ConnectInfoModal() {
   const [isModalOpen, setIsModalOpen] = useRecoilState(infoModalState);
 
