@@ -1,10 +1,10 @@
 // styles
 import "./font.css";
 import "./App.css";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 // hooks
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RecoilRoot } from "recoil";
 
 // component
@@ -37,27 +37,10 @@ import { BrowserRouter } from "react-router-dom";
 // icon
 
 function App() {
-  const [isShow, setIsShow] = useState(false);
-
   useEffect(() => {
     AOS.init({
       offset: 20,
     });
-  }, []);
-
-  useEffect(() => {
-    const showTimeout = setTimeout(() => {
-      setIsShow(() => true);
-    }, 400);
-
-    const hideTimeout = setTimeout(() => {
-      setIsShow(() => false);
-    }, 2200);
-
-    return () => {
-      clearTimeout(showTimeout);
-      clearTimeout(hideTimeout);
-    };
   }, []);
 
   return (
@@ -65,7 +48,7 @@ function App() {
       <RecoilRoot>
         <StyledLayout>
           <Sound />
-          <StyledNav className={isShow ? "active" : ""}>배경음악이 준비되어 있습니다.</StyledNav>
+          <StyledNav>배경음악이 준비되어 있습니다.</StyledNav>
           <Starting />
           <Poetry />
           <Calendar />
@@ -95,6 +78,17 @@ const StyledLayout = styled.div`
     max-width: 360px;
   }
 `;
+const slideInOut = keyframes`
+  0% {
+    transform: translateY(-48px);
+  }
+  10%, 90% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-48px);
+  }
+`;
 
 const StyledNav = styled.div`
   @media (max-width: 360px) {
@@ -107,8 +101,6 @@ const StyledNav = styled.div`
   position: absolute;
   top: 0;
 
-  transform: translateY(-48px);
-
   transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: center;
@@ -118,9 +110,10 @@ const StyledNav = styled.div`
 
   background-color: #f0ede6;
   color: #606060;
-  &.active {
-    transform: translateY(0);
-  }
+
+  /* 애니메이션 적용 */
+  animation: ${slideInOut} 3.5s ease-in-out;
+  animation-fill-mode: forwards;
 `;
 
 export default App;
