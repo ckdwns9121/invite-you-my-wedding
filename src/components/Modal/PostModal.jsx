@@ -38,7 +38,7 @@ const PostModal = ({ isModalOpen, handleCloseModal }) => {
             <HeaderText>💐축하 방명록 쓰기</HeaderText>
           </HeaderTextWrapper>
           <IconButtonWrapper>
-            <IconButton onClick={handleCloseModal}>
+            <IconButton onClick={handleCloseModal} aria-label="닫기">
               <CloseSvg />
             </IconButton>
           </IconButtonWrapper>

@@ -31,7 +31,7 @@ const ImageModal = forwardRef(({ src, isModalOpen, handleCloseModal, ...props },
       <Container isOpen={isModalOpen}>
         <Header>
           <IconButtonWrapper>
-            <IconButton onClick={handleCloseModal}>
+            <IconButton onClick={handleCloseModal} aria-label="닫기">
               <CloseSvg />
             </IconButton>
           </IconButtonWrapper>

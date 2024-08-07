@@ -9,6 +9,8 @@ export default function HeartIcon({ size = "15px", color = "currentColor", ...pr
       role="img"
       aria-hidden="true"
       size={size}
+      focusable="false"
+      tabIndex="-1"
       {...props}
     />
   );
