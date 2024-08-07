@@ -1,15 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
 import transferTime from "../../core/dateFormat";
-import { Button } from "@mui/material";
+import MuiButton from "@mui/material/Button/Button";
 import ConfirmModal from "../Modal/ConfirmModal";
-import { useState } from "react";
 
 // todo 아이콘 넣기 react-icone ?? fontawesome?
 export default function GuestBookList({ posts, onDelete }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteGuestBookItem, setDeleteGuestBookItem] = useState(null);
 
-  const handleClickModalOpen = post => {
+  const handleClickModalOpen = (post) => {
     setDeleteGuestBookItem(post);
     setIsModalOpen(true);
   };
@@ -17,7 +17,7 @@ export default function GuestBookList({ posts, onDelete }) {
   return (
     <Container>
       <Flex>
-        {posts.map(post => (
+        {posts.map((post) => (
           <GuestBookItem onClick={() => handleClickModalOpen(post)} key={post.id}>
             <ContentWrapper>
               <Text className="title">{post.title}</Text>
@@ -67,7 +67,7 @@ const DateWrapper = styled.div`
   align-items: center;
 `;
 
-const GuestBookItem = styled(Button)`
+const GuestBookItem = styled(MuiButton)`
   @media (max-width: 414px) {
     width: 90%;
   }

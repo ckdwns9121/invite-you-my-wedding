@@ -1,4 +1,4 @@
-import { IconButton as MuiIconButton } from "@mui/material";
+import MuiIconButton from "@mui/material/IconButton";
 import styled from "styled-components";
 
 export default function IconButton({ children, ...props }) {
