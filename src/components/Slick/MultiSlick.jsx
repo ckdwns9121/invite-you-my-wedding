@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
+import { useEffect } from "react";
 
 export default function MultiSlick({ children }) {
   const settings = {
@@ -12,6 +13,14 @@ export default function MultiSlick({ children }) {
     arrows: false,
     dots: true,
     slidesPerRow: 2,
+    accessibility: false,
   };
+  useEffect(() => {
+    const slides = document.querySelectorAll(".slick-track div");
+    slides.forEach((slide) => {
+      slide.removeAttribute("tabindex");
+    });
+  }, []);
+
   return <Slider {...settings}>{children}</Slider>;
 }
