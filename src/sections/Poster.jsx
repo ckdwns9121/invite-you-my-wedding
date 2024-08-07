@@ -45,7 +45,7 @@ const Image = styled.img`
 
 const Absolute = styled.div`
   position: absolute;
-  bottom: 22px;
+  bottom: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -77,6 +77,7 @@ const Text = styled.p`
     font-family: "yleeMortalHeart-ImmortalMemory", sans-serif;
     font-size: 6rem;
     margin-bottom: 10px;
+    font-weight: normal;
 
     @media (max-width: 430px) {
       font-size: 5rem;
