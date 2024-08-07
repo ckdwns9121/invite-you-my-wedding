@@ -1,7 +1,22 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import styled from "styled-components";
 
-const OptimizedImage = React.memo(({ src, alt, ...props }) => <Image src={src} alt={alt} loading="lazy" {...props} />);
+const preloadImage = (src) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = src;
+  });
+};
+
+const OptimizedImage = React.memo(({ src, alt, ...props }) => {
+  useEffect(() => {
+    preloadImage(src);
+  }, [src]);
+
+  return <StartImage src={src} alt={alt} {...props} />;
+});
 
 const OptimizedInviteText = React.memo(({ children, ...props }) => (
   <InviteText as="h1" {...props}>
@@ -12,22 +27,27 @@ const OptimizedInviteText = React.memo(({ children, ...props }) => (
 export default function Starting() {
   const imageUrl = useMemo(() => `${process.env.PUBLIC_URL}/image/main-card.webp`, []);
 
+  useEffect(() => {
+    // Preload the main image as soon as the component mounts
+    preloadImage(imageUrl);
+  }, [imageUrl]);
+
   return (
     <Container as="section" aria-label="웨딩 초대장 시작">
       <StyledWrapper>
         <OptimizedInviteText
           data-aos="fade-up"
-          data-aos-delay="500"
+          data-aos-delay="300"
           style={{ fontFamily: "yleeMortalHeart-ImmortalMemory" }}
         >
           Invite you
         </OptimizedInviteText>
-        <Text as="p" data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1500">
+        <Text as="p" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1000">
           소중한 당신을 초대합니다.
         </Text>
       </StyledWrapper>
-      <ImgWrapper data-aos="flip-left" data-aos-delay="1000" data-aos-duration="1800">
-        <OptimizedImage src={imageUrl} alt="신랑과 신부의 웨딩 사진" loading="lazy" />
+      <ImgWrapper data-aos="flip-left" data-aos-delay="300" data-aos-duration="1200">
+        <OptimizedImage src={imageUrl} alt="신랑과 신부의 웨딩 사진" />
       </ImgWrapper>
     </Container>
   );
@@ -51,7 +71,7 @@ const ImgWrapper = styled.div`
   height: 520px;
 `;
 
-const Image = styled.img`
+const StartImage = styled.img`
   width: 100%;
   height: auto;
 `;
